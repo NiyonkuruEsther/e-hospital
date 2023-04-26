@@ -1,3 +1,4 @@
+C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\MedicineServlet.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\MainServlet.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\enums\ERole.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\models\Patient.java
@@ -10,11 +11,13 @@ C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\ConsultationServlet.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\enums\EGender.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\models\User.java
+C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\models\Consultation.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\servlets\PhysicianAndPharmacistList.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\utils\ResponseFormat.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\models\Admin.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\models\Pharmacist.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\utils\JsonUtil.java
+C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\models\Medicine.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\servlets\ListUsersServlet.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\database\Users.java
 C:\Users\TheGym\Downloads\assessment-main\servlet_db\src\main\java\com\codeland\user\models\PatientInfo.java

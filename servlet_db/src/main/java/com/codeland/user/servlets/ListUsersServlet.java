@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.codeland.database.Users;
+import static com.codeland.user.enums.ERole.Patient;
 import com.codeland.user.models.Pharmacist;
 import com.codeland.user.models.Physician;
+import com.codeland.user.models.Patient;
+
 import com.codeland.user.models.User;
 import com.codeland.user.utils.ApiResponse;
 import com.codeland.user.utils.ResponseFormat;
@@ -28,7 +31,7 @@ public class ListUsersServlet extends HttpServlet {
       List<User> healthcareUsers = new ArrayList<>();
 
       for (User user : allUsers) {
-        if (user instanceof Pharmacist || user instanceof Physician) {
+        if (user instanceof Pharmacist || user instanceof Physician || user instanceof Patient) {
           healthcareUsers.add(user);
         }
       }

@@ -4,7 +4,7 @@
  */
 package com.codeland;
 
-import com.codeland.user.models.Consultation;
+import com.codeland.user.models.Medicine;
 import com.codeland.user.utils.ApiResponse;
 import com.codeland.user.utils.ResponseFormat;
 import com.google.gson.Gson;
@@ -16,17 +16,16 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/ConsultationServlet"})
-public class ConsultationServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/MedicineServlet"})
+public class MedicineServlet extends HttpServlet {
 
-    private Map<String, Consultation> consultationMap = new LinkedHashMap<>();
+   private Map<String, Medicine> medicineMap = new LinkedHashMap<>();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,15 +47,15 @@ public class ConsultationServlet extends HttpServlet {
         Map<String, String> requestMap = new Gson().fromJson(requestBody, HashMap.class);
         String id = requestMap.get("id");
 
-        Consultation consultation = gson.fromJson(requestBody, Consultation.class);
+        Medicine medicine = gson.fromJson(requestBody, Medicine.class);
 
         // Update the existing consultation with the new data
-        consultationMap.put(id, consultation);
+        medicineMap.put(id, medicine);
 
         // Create an ApiResponse containing the updated consultation list and a success message
-        List<Consultation> consultationList = new ArrayList<>(consultationMap.values());
+        List<Medicine> medicineList = new ArrayList<>(medicineMap.values());
         Map<String, Object> responseData = new HashMap<>();
-        responseData.put("consultationList", consultationList);
+        responseData.put("medicineList", medicineList);
         responseData.put("message", "Data updated successfully");
         ApiResponse apiResponse = new ApiResponse(ResponseFormat.SUCCESS, responseData);
 
@@ -68,15 +67,15 @@ public class ConsultationServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Create a list of consultations
+        // Create a list of mediciness
         String id = request.getParameter("id");
-        Consultation consultationList = consultationMap.get(id);
+        Medicine medicinesList = medicineMap.get(id);
 
-//        List<Consultation> consultationList = new ArrayList<>(consultationMap.values());
-        if (consultationList != null) {
-            // Create an ApiResponse object with the consultationList object
-            Map<String, Consultation> resultMap = new LinkedHashMap<>();
-            resultMap.put(id, consultationList);
+//        List<Medicine> medicinesList = new ArrayList<>(medicineMap.values());
+        if (medicinesList != null) {
+            // Create an ApiResponse object with the medicinesList object
+            Map<String, Medicine> resultMap = new LinkedHashMap<>();
+            resultMap.put(id, medicinesList);
             ApiResponse apiResponse = new ApiResponse(ResponseFormat.SUCCESS, resultMap);
 
             // Send the ApiResponse object as a JSON response
@@ -87,7 +86,7 @@ public class ConsultationServlet extends HttpServlet {
             System.out.println(gson.toJson(apiResponse));
             out.flush();
         } else {
-            // Return a 404 error response if the consultationList object is not found
+            // Return a 404 error response if the medicinesList object is not found
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }

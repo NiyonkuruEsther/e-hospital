@@ -36,13 +36,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author TheGym
  */
-@WebServlet(urlPatterns = { "/DashboardServlet" })
+@WebServlet(urlPatterns = {"/DashboardServlet"})
 public class DashboardServlet extends HttpServlet {
-      private static Map<String, PatientInfo> myMap = new LinkedHashMap<>();
 
-    public static Map<String, PatientInfo> getMyMap() {
-        return myMap;
-    }
+    private static Map<String, PatientInfo> myMap = new LinkedHashMap<>();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -58,50 +55,49 @@ public class DashboardServlet extends HttpServlet {
         String requestBody = buffer.toString();
 
         // Parse the request body JSON into the PatientInfo object
-Map<String, String> requestMap = new Gson().fromJson(requestBody, HashMap.class);
+        Map<String, String> requestMap = new Gson().fromJson(requestBody, HashMap.class);
 
-    // Parse the request body JSON into the PatientInfo object
-    Gson gson = new Gson();
-    PatientInfo patientInfo = gson.fromJson(requestBody, PatientInfo.class);
-String id = requestMap.get("id");
+        // Parse the request body JSON into the PatientInfo object
+        Gson gson = new Gson();
+        PatientInfo patientInfo = gson.fromJson(requestBody, PatientInfo.class);
+        String id = requestMap.get("id");
 
-    // Store the values in a linked hash map
-myMap.put(id, patientInfo);
+        // Store the values in a linked hash map
+        myMap.put(id, patientInfo);
 
-      
         ApiResponse apiResponse = new ApiResponse(ResponseFormat.SUCCESS, myMap);
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         out.print(gson.toJson(apiResponse));
         out.flush();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // Get the id parameter from the request
-    String id = request.getParameter("id");
-    
-    // Retrieve the PatientInfo object from myMap using the id as the key
-    PatientInfo patientInfo = myMap.get(id);
-    
-    // Check if the PatientInfo object exists
-    if (patientInfo != null) {
-        // Create an ApiResponse object with the PatientInfo object
-        Map<String, PatientInfo> resultMap = new LinkedHashMap<>();
-        resultMap.put(id, patientInfo);
-        ApiResponse apiResponse = new ApiResponse(ResponseFormat.SUCCESS, resultMap);
-        
-        // Send the ApiResponse object as a JSON response
-        Gson gson = new Gson();
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.print(gson.toJson(apiResponse));
-        System.out.println(gson.toJson(apiResponse));
-        out.flush();
-    } else {
-        // Return a 404 error response if the PatientInfo object is not found
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        // Get the id parameter from the request
+        String id = request.getParameter("id");
+
+        // Retrieve the PatientInfo object from myMap using the id as the key
+        PatientInfo patientInfo = myMap.get(id);
+
+        // Check if the PatientInfo object exists
+        if (patientInfo != null) {
+            // Create an ApiResponse object with the PatientInfo object
+            Map<String, PatientInfo> resultMap = new LinkedHashMap<>();
+            resultMap.put(id, patientInfo);
+            ApiResponse apiResponse = new ApiResponse(ResponseFormat.SUCCESS, resultMap);
+
+            // Send the ApiResponse object as a JSON response
+            Gson gson = new Gson();
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            out.print(gson.toJson(apiResponse));
+            System.out.println(gson.toJson(apiResponse));
+            out.flush();
+        } else {
+            // Return a 404 error response if the PatientInfo object is not found
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
-}
 
 }
-
