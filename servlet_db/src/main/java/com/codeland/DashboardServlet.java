@@ -75,29 +75,24 @@ public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get the id parameter from the request
-        String id = request.getParameter("id");
+    Map<String, PatientInfo> resultMap = new LinkedHashMap<>();
 
         // Retrieve the PatientInfo object from myMap using the id as the key
-        PatientInfo patientInfo = myMap.get(id);
+        for (Map.Entry<String, PatientInfo> entry : myMap.entrySet()) {
+        String id = entry.getKey();
+        PatientInfo patientInfo = entry.getValue();
+        resultMap.put(id, patientInfo);
+    }
+ ApiResponse apiResponse = new ApiResponse(ResponseFormat.SUCCESS, resultMap);
 
+    // Send the ApiResponse object as a JSON response
+    Gson gson = new Gson();
+    response.setContentType("application/json");
+    PrintWriter out = response.getWriter();
+    out.print(gson.toJson(apiResponse));
+    System.out.println(gson.toJson(apiResponse));
+    out.flush();
         // Check if the PatientInfo object exists
-        if (patientInfo != null) {
-            // Create an ApiResponse object with the PatientInfo object
-            Map<String, PatientInfo> resultMap = new LinkedHashMap<>();
-            resultMap.put(id, patientInfo);
-            ApiResponse apiResponse = new ApiResponse(ResponseFormat.SUCCESS, resultMap);
-
-            // Send the ApiResponse object as a JSON response
-            Gson gson = new Gson();
-            response.setContentType("application/json");
-            PrintWriter out = response.getWriter();
-            out.print(gson.toJson(apiResponse));
-            System.out.println(gson.toJson(apiResponse));
-            out.flush();
-        } else {
-            // Return a 404 error response if the PatientInfo object is not found
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
     }
 
 }

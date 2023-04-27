@@ -11,12 +11,12 @@ const url = `${host}:8080/java_servlet_app`;
 export default class Disease {
   static async getPatientDescription(req, res) {
     try {
-      const id = req.params.id;
-      const response = await fetch(`${url}/DashboardServlet?id=${id}`, {
+      const response = await fetch(`${url}/DashboardServlet`, {
         method: "GET",
       });
       const datas = await response.json();
-      return res.status(200).json({ message: datas.message, datas });
+      console.log(datas)
+      return res.json({ message: datas.message, datas });
     } catch (err) {
       console.log(err);
       if (res.statusCode === 500) {

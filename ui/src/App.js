@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div>
-      <ToastContainer position="top-left" />
+      <ToastContainer position="top-right" />
       <Routes>
         <Route path="/" element={<RedirectLogin />} />
         <Route path="/signup" element={<Signup />} />

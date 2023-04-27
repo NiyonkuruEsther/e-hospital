@@ -37,6 +37,7 @@ export default class MedicalController {
 					.status(200)
 					.json({ message: 'data retrived Successfully', data });
 			}
+			console.log(res)
 			return res.status(400).send({ message: 'please login ' });
 		} catch (err) {
 			return res.status(500).json({ message: 'internal server error' });

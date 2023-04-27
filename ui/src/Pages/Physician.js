@@ -1,177 +1,144 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-export default function FetchUsers() {
-  const navigate = useNavigate();
-  const [showModalPhysician, setShowModalPhysician] = useState(false);
-  const [userSelected, setUserSelected] = useState(null);
-  const [toPhysician, setToPhysician] = useState({
-    "": undefined,
-    patientInfo: [],
-    disease: "",
-  });
-
-  let data = {};
-
-  const [showModalPharmacist, setShowModalPharmacist] = useState(false);
-  const [selectedPharmacist, setSelectedPharmacist] = useState(null);
-
-  // new state variable for modal input
-  const [modalInput, setModalInput] = useState("");
-
-  function openModalPhysician(user) {
-    setUserSelected(user);
-    setShowModalPhysician(true);
-  }
-
-  function openModalPharmacist(pharmacist) {
-    setSelectedPharmacist(pharmacist);
-    setShowModalPharmacist(true);
-  }
-
+const Physician = () => {
   const [datas, setDatas] = useState([]);
+  const [enterConsultation, setEnterConsultation] = useState(false);
+  const [consultationInput, setConsultationInput] = useState("");
+  const [selectedPatient, setSelectedPatient] = useState([]);
+  const [cols, setCols] = useState([]);
 
-  const user = localStorage.getItem("user");
-  if (!user) navigate("/");
-
+  function openConsultationInput(user) {
+    console.log({ user });
+    setSelectedPatient(user);
+    setEnterConsultation(true);
+  }
   useEffect(() => {
     axios
-      .get("http://localhost:5500/api/v1/users/all")
+      .get(`http://localhost:5500/api/v1/disease`)
       .then(function (response) {
-        setDatas(response.data.datas.Payload);
+        const patientInfos = [];
+
+        for (const key of Object.keys(response.data.datas.Payload)) {
+          const patientInfo = response.data.datas.Payload[key];
+          patientInfos.push(patientInfo);
+        }
+        setCols(patientInfos[1].patientInfo[0]);
+        console.log(cols, "kll");
+        setDatas(patientInfos);
+        console.log("payload", datas, cols);
       })
       .catch(function (error) {
         console.log(error);
       });
   }, []);
 
-  const pharmacists = datas.filter(
-    (data1) => data1.role === "Pharmacist" && data1.age
-  );
-  const sortedPharmacists = [...pharmacists].sort(
-    (a, b) => new Date(a.age) - new Date(b.age)
-  );
-  const loggedInUser = JSON.parse(localStorage.getItem("user"));
-
-  const handleDiseaseSubmit = (event) => {
+  const handleConsultationSubmit = (event) => {
     event.preventDefault();
-    if (modalInput !== "") {
-      setToPhysician({
-        id: userSelected.id,
-        patientInfo: loggedInUser,
-        disease: modalInput,
-      });
-      setModalInput("");
-    }
-    console.log({
-      id: userSelected.id,
-      patientInfo: [loggedInUser],
-      disease: modalInput,
-    });
+    setConsultationInput("");
+    console.log({ selectedPatient, consultationInput });
     axios
-      .post("http://localhost:5500/api/v1/disease", {
-        id: userSelected.id,
-        patientInfo: [loggedInUser],
-        disease: modalInput,
+      .post("http://localhost:5500/api/v1/consultation", {
+        data: {
+          id: selectedPatient[1],
+          consultation: consultationInput,
+        },
       })
       .then((response) => {
-        console.log(response.data);
         toast.success("POST request was successful!");
       })
       .catch((error) => {
+        console.error(error);
         toast.error("Error occurred during POST request.");
       });
-
-    // console.log(userSelected, toPhysician, "jjjj", modalInput);
   };
-
-  // const id = "lkjfdsalknfdsa";
-
-  axios
-    .get(
-      `http://localhost:5500/api/v1/consultation/18170884-5f3d-4cd0-b0f3-7aa0258dc690`
-    )
-    .then((response) => {
-      console.log(response.data);
+  const data = datas
+    .map((item, index) => {
+      const arr = [
+        item.disease,
+        ...Object.values(item.patientInfo ? item.patientInfo[0] : {}),
+      ];
+      // arr.splice(1, 1);
+      return arr;
     })
-    .catch((error) => {
-      console.error(error);
-    });
-
+    .slice(1);
+  console.log(data);
   return (
     <>
-      <div className="w-full grid justify-end h-full items-end">
-        <button className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-4">
-          Medecine
-        </button>
-      </div>
-
-      <h1 className="text-4xl text-center pb-8 text-orange-500 font-bold">
-        List of available Physicians and Pharmacists
+      <h1 className="text-4xl text-center py-8 text-orange-500 font-bold">
+        List of accessible Patients
       </h1>
       {datas.length > 0 && (
-        <table className="table-auto mx-auto w-full mb-8">
-          <thead>
+        <table className=" mx-auto w-full mb-8">
+          <thead className="w-full">
             <tr className="bg-orange-500 text-white">
-              {Object.keys(datas[0])
+              {Object.keys(cols)
                 .filter((x) => x !== "id")
                 .map((k) => (
-                  <th key={k} className="py-2 px-4">
+                  <th key={k} className="py-2 px-6">
                     {k}
                   </th>
                 ))}
 
-              <th className="py-2 px-4">Actions</th>
+              <th className="py-2 px-8">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {datas
-              .filter((data) => data.role === "Physician" && data.age)
-              .sort((a, b) => a.firstName.localeCompare(b.firstName))
-              .map((data) => (
-                <tr key={data.id} className="border-b-2 border-gray-200">
-                  {Object.keys(data)
-                    .filter((x) => x !== "id")
-                    .map((key) => (
-                      <td key={key} className="py-2 px-4">
-                        {data[key]}
-                      </td>
-                    ))}
+            {data.map((item, index) => {
+              return (
+                <tr
+                  key={index}
+                  className="border-b-2 border-gray-200 text-center"
+                >
+                  {item.slice(2).map((item) => {
+                    return <td>{item}</td>;
+                  })}
+                  {/* {item.map((item) => {
+            })} */}
                   <td className="py-2 px-4">
                     <button
-                      onClick={() => openModalPhysician(data)}
+                      onClick={() => openConsultationInput(item)}
                       className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
                     >
-                      Grant Access
+                      Consultation
                     </button>
                   </td>
                 </tr>
-              ))}
+              );
+            })}
           </tbody>
         </table>
       )}
-      {showModalPhysician && (
+      {enterConsultation && (
         <div className="modal fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50">
           <div className="modal-content bg-white mx-auto w-1/2 p-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <span
               className="close absolute top-4 right-4 text-black cursor-pointer text-3xl font-bold"
-              onClick={() => setShowModalPhysician(false)}
+              onClick={() => setEnterConsultation(false)}
             >
               &times;
             </span>
             <h3 className="text-xl font-bold mb-4 text-center">
-              Grant Access to Physician {userSelected?.firstName}
+              Written Consultation for Patient {selectedPatient[2]}
+              {selectedPatient[3]}
             </h3>
-            <form onSubmit={handleDiseaseSubmit}>
+            <div className="w-full flex flex-col py-6 gap-4 justify-center items-center">
+              <h1 className="font-semibold text-xl">
+                Patient {selectedPatient[2]} {selectedPatient[3]}
+                &apos; disease
+              </h1>
+              <p className="text-center p-12 border-2">{selectedPatient[0]}</p>
+            </div>
+            <form onSubmit={handleConsultationSubmit}>
               <textarea
+                placeholder="Writer here the written consultation for the patient..."
                 name="disease"
                 rows="4"
                 cols="50"
                 className="w-full border-gray-200 rounded px-2 py-1 border-2 outline-none focus:border-none focus:ring-2 ring-orange-500"
-                value={modalInput}
-                onChange={(e) => setModalInput(e.target.value)}
+                value={consultationInput}
+                onChange={(e) => setConsultationInput(e.target.value)}
               ></textarea>
               <button
                 type="submit"
@@ -183,7 +150,7 @@ export default function FetchUsers() {
           </div>
         </div>
       )}
-
+      {/* 
       <h2 className="text-3xl text-center py-8 text-orange-500 font-bold">
         Pharmacists
       </h2>
@@ -241,8 +208,8 @@ export default function FetchUsers() {
                 rows="4"
                 cols="50"
                 className="w-full border-gray-200 rounded px-2 py-1 border-2 outline-none focus:border-none focus:ring-2 ring-orange-500"
-                value={modalInput}
-                onChange={(e) => setModalInput(e.target.value)}
+                value={consultationInput}
+                onChange={(e) => setConsultationInput(e.target.value)}
               ></textarea>
               <button
                 type="submit"
@@ -253,7 +220,9 @@ export default function FetchUsers() {
             </form>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
-}
+};
+
+export default Physician;
