@@ -11,10 +11,11 @@ import lombok.AllArgsConstructor;
 public class Patient extends User {
   @Override
   public ApiResponse<User> signup() throws Exception {
+      setIdentifier(getFirstName() + getLastName());
     if (!Pattern.matches("^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*$", getEmail())) {
       throw new Exception("Invalid email address!");
     }
-    if (Users.findUser(getEmail()) != null) {
+    if (Users.findUser(getIdentifier()) != null) {
       System.out.println("Patient already exists");
       throw new Exception("User already exists");
     }
@@ -23,6 +24,6 @@ public class Patient extends User {
     }
     encryptPassword();
     Users.addUser(this);
-    return new ApiResponse<>("Patient successfully registered!", Users.findUser(getEmail()));
+    return new ApiResponse<>("Patient successfully registered!", Users.findUser(getIdentifier()));
   }
 }

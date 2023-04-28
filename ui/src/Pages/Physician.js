@@ -75,6 +75,7 @@ const Physician = () => {
             <tr className="bg-orange-500 text-white">
               {Object.keys(cols)
                 .filter((x) => x !== "id")
+                .filter((x) => x !== "identifier")
                 .map((k) => (
                   <th key={k} className="py-2 px-6">
                     {k}
@@ -91,9 +92,12 @@ const Physician = () => {
                   key={index}
                   className="border-b-2 border-gray-200 text-center"
                 >
-                  {item.slice(2).map((item) => {
-                    return <td>{item}</td>;
-                  })}
+                  {item
+                    .slice(2)
+                    .slice(0, -1)
+                    .map((item) => {
+                      return <td>{item}</td>;
+                    })}
                   {/* {item.map((item) => {
             })} */}
                   <td className="py-2 px-4">

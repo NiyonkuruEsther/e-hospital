@@ -11,7 +11,8 @@ public class Physician extends User {
     if (!Pattern.matches("^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*$", getEmail())) {
       throw new Exception("Invalid email address!");
     }
-    if (Users.findUser(getEmail()) != null) {
+      setIdentifier(getEmail());
+    if (Users.findUser(getIdentifier()) != null) {
       throw new Exception("User already exists");
     }
     if (!Pattern.matches("^\\w{7,8}$", getPassword())) {
@@ -19,7 +20,7 @@ public class Physician extends User {
     }
     encryptPassword();
     Users.addUser(this);
-    return new ApiResponse<>("physician successfully registered!", Users.findUser(getEmail()));
+    return new ApiResponse<>("physician successfully registered!", Users.findUser(getIdentifier()));
   };
 
     public Object getName() {

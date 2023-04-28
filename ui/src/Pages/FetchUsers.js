@@ -164,6 +164,7 @@ export default function FetchUsers() {
             <tr className="bg-orange-500 text-white">
               {Object.keys(datas[0])
                 .filter((x) => x !== "id")
+                .filter((x) => x !== "identifier")
                 .map((k) => (
                   <th key={k} className="py-2 px-4">
                     {k}
@@ -181,6 +182,7 @@ export default function FetchUsers() {
                 <tr key={data.id} className="border-b-2 border-gray-200">
                   {Object.keys(data)
                     .filter((x) => x !== "id")
+                    .filter((x) => x !== "identifier")
                     .map((key) => (
                       <td key={key} className="py-2 px-4">
                         {data[key]}
@@ -290,6 +292,7 @@ export default function FetchUsers() {
             <tr className="bg-orange-500 text-white">
               {Object.keys(datas[0])
                 .filter((x) => x !== "id")
+                .filter((x) => x !== "identifier")
                 .map((k) => (
                   <th key={k} className="py-2 px-4">
                     {k}
@@ -303,6 +306,8 @@ export default function FetchUsers() {
               <tr key={data.id} className="border-b-2 border-gray-200">
                 {Object.keys(data)
                   .filter((x) => x !== "id")
+                  .filter((x) => x !== "identifier")
+
                   .map((key) => (
                     <td key={key} className="py-2 px-4">
                       {data[key]}

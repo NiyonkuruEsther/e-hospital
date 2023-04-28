@@ -6,7 +6,6 @@ com\codeland\user\models\Physician.class
 com\codeland\user\enums\EGender.class
 com\codeland\user\models\Patient.class
 com\codeland\user\enums\ERole.class
-com\codeland\user\servlets\PhysicianAndPharmacistList.class
 com\codeland\user\models\Pharmacist.class
 com\codeland\user\utils\JsonUtil.class
 com\codeland\ConsultationServlet.class

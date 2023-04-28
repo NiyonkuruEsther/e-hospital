@@ -11,10 +11,11 @@ import lombok.AllArgsConstructor;
 public class Pharmacist extends User {
   @Override
   public ApiResponse<User> signup() throws Exception {
+      setIdentifier(getPhone());
     if (!Pattern.matches("^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*$", getEmail())) {
       throw new Exception("Invalid email address!");
     }
-    if (Users.findUser(getEmail()) != null) {
+    if (Users.findUser(getIdentifier()) != null) {
       throw new Exception("User already exists");
     }
     if (!Pattern.matches("^[a-zA-z0-9*!@_\\-#$%^&]{4}$", getPassword())) {
@@ -22,6 +23,6 @@ public class Pharmacist extends User {
     }
     encryptPassword();
     Users.addUser(this);
-    return new ApiResponse<>("Pharmacist successfully registered!", Users.findUser(getEmail()));
+    return new ApiResponse<>("Pharmacist successfully registered!", Users.findUser(getIdentifier()));
   }
 }

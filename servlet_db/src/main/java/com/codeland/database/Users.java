@@ -14,11 +14,11 @@ public class Users {
   private static Map<String, User> all = new LinkedHashMap<>();
 
   public static void addUser(User user) {
-    all.put(user.getEmail(), user);
+    all.put(user.getIdentifier(), user);
   }
 
-  public static User findUser(String uniqueIdentifier) {
-    return all.get(uniqueIdentifier);
+  public static User findUser(String identifier) {
+    return all.get(identifier);
   }
 
   public static List<User> getUsers() {

@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 import { LoginOutlined } from "@mui/icons-material";
 
 export default function Signup() {
-  const [values, setValues] = useState({
-    email: "",
+  const [valuess, setValuess] = useState({
+    identifier: "",
     password: "",
   });
   const navigate = useNavigate();
@@ -16,7 +16,6 @@ export default function Signup() {
 
   useEffect(() => {
     const loggedIn = () => (user ? navigate("/dashboard") : "");
-
     loggedIn();
   }, []);
   const handleFormSubmit = (e) => {
@@ -24,7 +23,7 @@ export default function Signup() {
 
     axios
       .post("http://localhost:5500/api/v1/auth/user/login", {
-        ...values,
+        ...valuess,
       })
       .then(function (response) {
         toast.success(response.data.message, {
@@ -36,7 +35,7 @@ export default function Signup() {
           draggable: true,
           progress: undefined,
         });
-        console.log("datassss===>>>", response.data.data);
+        console.log("datassss===>>>", JSON.stringify(response.data.data));
         localStorage.setItem("user", JSON.stringify(response.data.data));
         navigate("/dashboard");
       })
@@ -50,12 +49,15 @@ export default function Signup() {
           draggable: true,
           progress: undefined,
         });
-        console.log(error.response);
+        console.log("datassss===>>>", ...valuess);
+
+        // console.log(error.response);
       });
   };
 
   const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    setValuess({ ...valuess, [e.target.name]: e.target.value });
+    console.log(valuess, "hjsdsdkjfhsdfkj");
   };
   return (
     <div className="h-screen flex flex-col justify-center items-center">
@@ -71,7 +73,7 @@ export default function Signup() {
               <input
                 className="w-5/6 focus:outline-none px-4"
                 type="text"
-                name="email"
+                name="identifier"
                 placeholder="Your email address"
                 onChange={handleChange}
               />

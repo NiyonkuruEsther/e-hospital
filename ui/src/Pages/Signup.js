@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Select from "react-select";
 import axios from "axios";
-import countryList from "react-select-country-list";
 import { LoginOutlined } from "@mui/icons-material";
 
 export default function SignupForm() {
@@ -20,7 +19,7 @@ export default function SignupForm() {
     password: "",
     age: "",
     gender: "",
-    country: "",
+    phone: "",
     role: "",
   });
 
@@ -65,7 +64,6 @@ export default function SignupForm() {
   };
 
   const [value, setValue] = useState("");
-  const options = useMemo(() => countryList().getData(), []);
 
   const changeHandler = (value, key) => {
     setValue(value);
@@ -139,17 +137,25 @@ export default function SignupForm() {
             </div>
           </div>
 
-          <p className="text-opacity-20 text-black  text-xl">
-            Choose your country
-          </p>
-          <div className="country ">
-            <Select
-              className=""
-              options={options}
-              name="country"
-              value={value}
-              onChange={changeHandler}
+          <div className="flex flex-col space-y-4">
+            <label
+              htmlFor="phone"
+              className="text-lg font-medium text-gray-700"
+            >
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={values.phone}
+              onChange={handleChange}
+              placeholder="Enter your phone number"
+              className="px-4 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
+          </div>
+          <div className="">
+            <input type="text" />
           </div>
           <label htmlFor="gender" className="opacity-40 text-lg">
             Gender

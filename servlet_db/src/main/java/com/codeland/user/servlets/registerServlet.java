@@ -41,8 +41,8 @@ public class registerServlet extends HttpServlet {
         throw new RuntimeException("Age is required");
       if (user.getGender() == null)
         throw new RuntimeException("Gender is required");
-      if (user.getCountry() == null || user.getCountry().isEmpty())
-        throw new RuntimeException("Country is required");
+      if (user.getPhone() == null || user.getPhone().isEmpty())
+        throw new RuntimeException("Phone number is required");
       User Admin;
       ApiResponse<User> result;
 
@@ -57,7 +57,7 @@ public class registerServlet extends HttpServlet {
       }
       Admin.setFirstName(user.getFirstName());
       Admin.setGender(user.getGender());
-      Admin.setCountry(user.getCountry());
+      Admin.setPhone(user.getPhone());
       Admin.setEmail(user.getEmail());
       Admin.setRole(user.getRole());
       Admin.setLastName(user.getLastName());

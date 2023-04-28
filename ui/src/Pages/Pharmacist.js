@@ -77,18 +77,16 @@ const Pharmacist = () => {
     setMedicinePrice("");
     setExpirationDate("");
   };
-  const data = datas
-    .map((item, index) => {
-      const arr = [
-        item.consultation,
-        ...Object.values(item.patientInfo ? item.patientInfo[0] : {}),
-      ];
-      // arr.splice(1, 1);
-      console.log(arr);
-      return arr;
-    })
-    .slice(1);
-  console.log(datas, "data");
+  const data = datas.map((item, index) => {
+    console.log(item, "item");
+    const arr = [item.consultation, ...Object.values(item.patientInfo[0])];
+    console.log(arr, "array");
+    // arr.splice(1, 1);
+    console.log(arr);
+    return arr;
+  });
+  // .slice(1);
+  console.log(data, "data");
   return (
     <>
       <h1 className="text-4xl text-center py-8 text-orange-500 font-bold">
@@ -101,6 +99,7 @@ const Pharmacist = () => {
               {cols &&
                 Object.keys(cols)
                   .filter((x) => x !== "id")
+                  .filter((x) => x !== "identifier")
                   .map((k) => (
                     <th key={k} className="py-2 px-6">
                       {k}
@@ -111,15 +110,19 @@ const Pharmacist = () => {
             </tr>
           </thead>
           <tbody>
+            {console.log(datas, "null")}
             {data.map((item, index) => {
               return (
                 <tr
                   key={index}
                   className="border-b-2 border-gray-200 text-center"
                 >
-                  {item.slice(2).map((item) => {
-                    return <td>{item}</td>;
-                  })}
+                  {item
+                    .slice(2)
+                    .slice(0, -1)
+                    .map((item) => {
+                      return <td>{item}</td>;
+                    })}
                   {/* {item.map((item) => {
             })} */}
                   <td className="py-2 px-4">

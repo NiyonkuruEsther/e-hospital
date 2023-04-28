@@ -21,9 +21,8 @@ public class LoginServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     User user = new JsonUtil().parseBodyJson(req, Admin.class);
     try {
-      ApiResponse<User> result = user.login(user.getEmail(), user.getPassword());
+      ApiResponse<User> result = user.login(user.getIdentifier(), user.getPassword());
       ResponseFormat.response(res, result, HttpServletResponse.SC_OK);
-        System.out.println(user.getEmail()+" "+user.getPassword());
     } catch (AuthenticationException e) {
       e.printStackTrace();
       ResponseFormat.response(res, new ApiResponse<>(e.getMessage(), null), HttpServletResponse.SC_FORBIDDEN);
