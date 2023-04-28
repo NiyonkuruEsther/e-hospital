@@ -14,6 +14,6 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ResponseFormat.response(resp, new ApiResponse<>("Hey Mom >>> This is Prophete! 😎", null), HttpServletResponse.SC_OK);
+        ResponseFormat.response(resp, new ApiResponse<>("Started the Server", null), HttpServletResponse.SC_OK);
     }
 }

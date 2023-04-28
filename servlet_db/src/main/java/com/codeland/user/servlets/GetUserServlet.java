@@ -20,13 +20,12 @@ public class GetUserServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		try {
-			String email = req.getParameter("email");
-			if (email == null)
-				throw new RuntimeException("No email specified");
-			User user = Users.findUser(email);
+			String uniqueIdentifier = req.getParameter("uniqueIdentifier");
+			if (uniqueIdentifier == null)
+				throw new RuntimeException("No identifier specified");
+			User user = Users.findUser(uniqueIdentifier);
 			if (user == null)
 				throw new RuntimeException("User not found");
-			System.out.println("Dataaaaaaa===>>>> " + user.getEmail());
 			ResponseFormat.response(res, new ApiResponse<User>("User retrieved successfully", user),
 					HttpServletResponse.SC_OK);
 		} catch (Exception e) {

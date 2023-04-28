@@ -17,8 +17,8 @@ public class Users {
     all.put(user.getEmail(), user);
   }
 
-  public static User findUser(String email) {
-    return all.get(email);
+  public static User findUser(String uniqueIdentifier) {
+    return all.get(uniqueIdentifier);
   }
 
   public static List<User> getUsers() {

@@ -56,8 +56,8 @@ public abstract class User {
     this.setPassword(BCrypt.hashpw(this.password, BCrypt.gensalt(10)));
   }
 
-  public ApiResponse<User> login(String email, String password) throws AuthenticationException {
-    User foundUser = Users.findUser(email);
+  public ApiResponse<User> login(String uniqueIdentifier, String password) throws AuthenticationException {
+    User foundUser = Users.findUser(uniqueIdentifier);
     if (foundUser == null)
       throw new AuthenticationException("Invalid credentials!❌❌❌❌");
     if (!BCrypt.checkpw(password, foundUser.password))

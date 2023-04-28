@@ -67,7 +67,6 @@ public class registerServlet extends HttpServlet {
       ResponseFormat.response(resp, result, HttpServletResponse.SC_CREATED);
     } catch (Exception error) {
       error.printStackTrace();
-      System.out.println("========>>>>> " + error);
       ResponseFormat.response(resp, new ApiResponse<>(error.getMessage(), null), HttpServletResponse.SC_BAD_REQUEST);
     }
   }

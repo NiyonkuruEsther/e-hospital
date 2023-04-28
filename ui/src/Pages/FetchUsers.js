@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { CSVLink } from "react-csv";
 
 export default function FetchUsers() {
   const navigate = useNavigate();
   const [consultation, setConsultation] = useState({});
+  const [medicine, setMedicine] = useState({});
   const [consultationInput, setConsultationInput] = useState("");
   const [showModalPhysician, setShowModalPhysician] = useState(false);
   const [userSelected, setUserSelected] = useState(null);
@@ -13,6 +15,7 @@ export default function FetchUsers() {
   const [showModalPharmacist, setShowModalPharmacist] = useState(false);
   const [selectedPharmacist, setSelectedPharmacist] = useState(null);
   const [showConsultations, setShowConsultations] = useState(false);
+  const [showMedicines, setShowMedicines] = useState(false);
 
   // new state variable for modal input
   const [modalInput, setModalInput] = useState("");
@@ -26,6 +29,9 @@ export default function FetchUsers() {
     setShowConsultations(true);
   }
 
+  function openMedicines() {
+    setShowMedicines(true);
+  }
   function openModalPharmacist(pharmacist) {
     setSelectedPharmacist(pharmacist);
     setShowModalPharmacist(true);
@@ -57,9 +63,6 @@ export default function FetchUsers() {
 
   const handleDiseaseSubmit = (event) => {
     event.preventDefault();
-
-    setModalInput("");
-
     axios
       .post("http://localhost:5500/api/v1/disease", {
         id: userSelected.id,
@@ -73,6 +76,7 @@ export default function FetchUsers() {
       .catch((error) => {
         toast.error("Error occurred during POST request.");
       });
+    setModalInput("");
   };
 
   const allConsultation = () => {
@@ -87,23 +91,46 @@ export default function FetchUsers() {
       });
   };
 
+  const allMedicines = () => {
+    axios
+      .get(`http://localhost:5500/api/v1/medicine`)
+      .then((response) => {
+        const payloadData = response.data.datas.Payload;
+        setMedicine(payloadData[loggedInUser.id]);
+        console.log("payyyyyyyyyy", medicine);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  // console.log(consultationInput, "medicine");
+
   const handleConsultationSubmit = (event) => {
     event.preventDefault();
-    setConsultationInput("");
     axios
       .post("http://localhost:5500/api/v1/consultation/pharmacist", {
         id: loggedInUser.id,
+        consultation: consultationInput,
         patientInfo: [loggedInUser],
-        medicine: consultationInput,
       })
       .then((response) => {
-        console.log(response.data, "sdhskjdfhdskj");
+        console.log(response, "sdhskjdfhdskj", {
+          id: loggedInUser.id,
+          consulation: consultationInput,
+          patientInfo: [loggedInUser],
+        });
         toast.success("POST request was successful!");
       })
       .catch((error) => {
         toast.error("Error occurred during POST request.");
       });
+    setConsultationInput("");
   };
+
+  const data = [
+    ["Name", "Price", "Expiration Date"],
+    [medicine.name, medicine.price, medicine.expirationDate],
+  ];
 
   return (
     <>
@@ -117,8 +144,14 @@ export default function FetchUsers() {
         >
           Consultations
         </button>
-        <button className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-4">
-          Medecine
+        <button
+          onClick={(event) => {
+            allMedicines();
+            openMedicines();
+          }}
+          className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-4"
+        >
+          MedIcine
         </button>
       </div>
 
@@ -209,7 +242,7 @@ export default function FetchUsers() {
             </span>
             <div className="flex flex-col gap-5">
               <h1 className="font-bold text-3xl text-center">
-                Consulations from patients
+                Consulations from Physicians
               </h1>
               <p className="text-2xl">
                 <b>Consultation</b> : {consultation.consultation}
@@ -219,6 +252,35 @@ export default function FetchUsers() {
         </div>
       )}
 
+      {showMedicines && (
+        <div className="modal fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50">
+          <div className="modal-content bg-white mx-auto w-1/2 p-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <span
+              className="close absolute top-4 right-4 text-black cursor-pointer text-3xl font-bold"
+              onClick={() => setShowMedicines(false)}
+            >
+              &times;
+            </span>
+            <div className="flex flex-col gap-5">
+              <h1 className="font-bold text-3xl text-center">
+                Medicines from Pharmacists
+              </h1>
+              <div className="text-2xl border-2  flex flex-col gap-6">
+                <p className="">{medicine.name}</p>
+                <p className="">{medicine.price}</p>
+                <p className="mb-12">{medicine.expirationDate}</p>
+
+                <CSVLink
+                  data={data}
+                  className="bg-orange-500  hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-12"
+                >
+                  Download Medicine CSV
+                </CSVLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <h2 className="text-3xl text-center py-8 text-orange-500 font-bold">
         Pharmacists
       </h2>

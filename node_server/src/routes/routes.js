@@ -18,11 +18,11 @@ const { createConsultationPharmacist, getConsultationPharmacist } =
 
 const router = Router();
 
-router.get("/disease", getPatientDescription);
 router.post("/auth/user/signup", Signup);
 router.get("/users/single/:email", getUser);
 router.get("/users/all", getUsers);
 router.post("/auth/user/login", Login);
+router.get("/disease", getPatientDescription);
 router.post("/disease", createPatientDescription);
 router.post("/consultation", createConsultation);
 router.get("/consultation", getConsultation);

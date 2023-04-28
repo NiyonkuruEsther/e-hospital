@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   frontend:
@@ -9,11 +9,11 @@ services:
     depends_on:
       - node_bn
     volumes:
-      - './:/frontend'
+      - "./:/frontend"
     ports:
       - 3000:3000
     expose:
-      - '3000:3000'
+      - "3000:3000"
     restart: unless-stopped
   node_bn:
     image: applicaion-bn:latest
@@ -24,9 +24,9 @@ services:
     volumes:
       - ./:/src/node_bn
     ports:
-      - '5500:5500'
+      - "5500:5500"
     expose:
-      - '5500:5500'
+      - "5500:5500"
     environment:
       HOST: http://${DOCKER_GATEWAY_HOST:-host.docker.internal}
     restart: unless-stopped
@@ -37,7 +37,7 @@ services:
     volumes:
       - ./:/tomcat
     ports:
-      - '8080:8080'
+      - "8080:8080"
     expose:
-      - '8080:8080'
+      - "8080:8080"
     restart: unless-stopped

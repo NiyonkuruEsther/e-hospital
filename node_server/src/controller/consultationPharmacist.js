@@ -11,7 +11,7 @@ const url = `${host}:8080/java_servlet_app`;
 export default class ConsultationPharmacist {
   static async getConsultationPharmacist(req, res) {
     try {
-      const response = await fetch(`${url}/ConsultationPharmacist`, {
+      const response = await fetch(`${url}/ConsultationPharmaServlet`, {
         method: "GET",
       });
       const datas = await response.json();
@@ -28,11 +28,13 @@ export default class ConsultationPharmacist {
   }
   static async createConsultationPharmacist(req, res) {
     try {
-      const response = await fetch(`${url}/ConsultationPharmacist`, {
+      const response = await fetch(`${url}/ConsultationPharmaServlet`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ ...req.body }),
       });
+      console.log({ body: JSON.stringify({ ...req.body }) }, "requestbody");
+      console.log(response, "datas");
 
       const datas = await response.json();
       return res

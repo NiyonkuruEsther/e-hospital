@@ -126,7 +126,7 @@ const Physician = () => {
             <div className="w-full flex flex-col py-6 gap-4 justify-center items-center">
               <h1 className="font-semibold text-xl">
                 Patient {selectedPatient[2]} {selectedPatient[3]}
-                &apos; disease
+                &apos;s disease
               </h1>
               <p className="text-center p-12 border-2">{selectedPatient[0]}</p>
             </div>
