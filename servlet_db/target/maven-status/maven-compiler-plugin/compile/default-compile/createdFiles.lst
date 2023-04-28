@@ -1,3 +1,5 @@
+com\codeland\user\models\ConsultationPharma.class
+com\codeland\ConsultationPharmaServlet.class
 com\codeland\user\utils\JsonUtil$1.class
 com\codeland\user\models\Consultation.class
 com\codeland\user\models\Physician.class

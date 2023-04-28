@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const Physician = () => {
+const Pharmacist = () => {
   const [datas, setDatas] = useState([]);
   const [enterConsultation, setEnterConsultation] = useState(false);
   const [consultationInput, setConsultationInput] = useState("");
@@ -16,16 +16,15 @@ const Physician = () => {
   }
   useEffect(() => {
     axios
-      .get(`http://localhost:5500/api/v1/disease`)
+      .get(`http://localhost:5500/api/v1/consultation/pharmacist`)
       .then(function (response) {
         const patientInfos = [];
+        console.log(response.data.datas.Payload);
         for (const key of Object.keys(response.data.datas.Payload)) {
           const patientInfo = response.data.datas.Payload[key];
           patientInfos.push(patientInfo);
         }
-        console.log(response.data.datas.Payload, patientInfos[0]);
-
-        setCols(patientInfos[0].patientInfo[0]);
+        setCols(patientInfos[1].patientInfo[0]);
         console.log(cols, "kll");
         setDatas(patientInfos);
         console.log("payload", datas, cols);
@@ -38,11 +37,13 @@ const Physician = () => {
   const handleConsultationSubmit = (event) => {
     event.preventDefault();
     setConsultationInput("");
-    console.log(selectedPatient[1], consultationInput);
+    console.log({ selectedPatient, consultationInput });
     axios
       .post("http://localhost:5500/api/v1/consultation", {
-        id: selectedPatient[1],
-        consultation: consultationInput,
+        data: {
+          id: selectedPatient[1],
+          consultation: consultationInput,
+        },
       })
       .then((response) => {
         toast.success("POST request was successful!");
@@ -52,17 +53,16 @@ const Physician = () => {
         toast.error("Error occurred during POST request.");
       });
   };
-  const data = datas.map((item, index) => {
-    const arr = [
-      item.disease,
-      ...Object.values(
-        item.patientInfo ? item.patientInfo && item.patientInfo[0] : {}
-      ),
-    ];
-    // arr.splice(1, 1);
-    return arr;
-  });
-
+  const data = datas
+    .map((item, index) => {
+      const arr = [
+        item.disease,
+        ...Object.values(item.patientInfo ? item.patientInfo[0] : {}),
+      ];
+      // arr.splice(1, 1);
+      return arr;
+    })
+    .slice(1);
   console.log(data);
   return (
     <>
@@ -120,7 +120,7 @@ const Physician = () => {
               &times;
             </span>
             <h3 className="text-xl font-bold mb-4 text-center">
-              Written Consultation for Patient {selectedPatient[2]}{" "}
+              Written Consultation for Patient {selectedPatient[2]}
               {selectedPatient[3]}
             </h3>
             <div className="w-full flex flex-col py-6 gap-4 justify-center items-center">
@@ -154,4 +154,4 @@ const Physician = () => {
   );
 };
 
-export default Physician;
+export default Pharmacist;

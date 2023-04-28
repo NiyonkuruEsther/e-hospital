@@ -8,10 +8,10 @@ const host = process.env.HOST || "http://localhost";
 
 const url = `${host}:8080/java_servlet_app`;
 
-export default class Consultation {
-  static async getConsultation(req, res) {
+export default class ConsultationPharmacist {
+  static async getConsultationPharmacist(req, res) {
     try {
-      const response = await fetch(`${url}/ConsultationServlet`, {
+      const response = await fetch(`${url}/ConsultationPharmacist`, {
         method: "GET",
       });
       const datas = await response.json();
@@ -26,9 +26,9 @@ export default class Consultation {
       return res.status(400).json({ message: "Unable to signup", error: err });
     }
   }
-  static async createConsultation(req, res) {
+  static async createConsultationPharmacist(req, res) {
     try {
-      const response = await fetch(`${url}/ConsultationServlet`, {
+      const response = await fetch(`${url}/ConsultationPharmacist`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ ...req.body }),

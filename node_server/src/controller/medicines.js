@@ -12,7 +12,7 @@ export default class Medicine {
   static async getMedicine(req, res) {
     try {
       const id = req.params.id;
-      const response = await fetch(`${url}/MedicineServlet?id=${id}`, {
+      const response = await fetch(`${url}/MedicineServlet`, {
         method: "GET",
       });
       const datas = await response.json();

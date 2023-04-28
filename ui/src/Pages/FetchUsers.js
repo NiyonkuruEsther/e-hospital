@@ -5,18 +5,14 @@ import { toast } from "react-toastify";
 
 export default function FetchUsers() {
   const navigate = useNavigate();
+  const [consultation, setConsultation] = useState({});
+  const [consultationInput, setConsultationInput] = useState("");
   const [showModalPhysician, setShowModalPhysician] = useState(false);
   const [userSelected, setUserSelected] = useState(null);
-  const [toPhysician, setToPhysician] = useState({
-    "": undefined,
-    patientInfo: [],
-    disease: "",
-  });
-
-  let data = {};
 
   const [showModalPharmacist, setShowModalPharmacist] = useState(false);
   const [selectedPharmacist, setSelectedPharmacist] = useState(null);
+  const [showConsultations, setShowConsultations] = useState(false);
 
   // new state variable for modal input
   const [modalInput, setModalInput] = useState("");
@@ -24,6 +20,10 @@ export default function FetchUsers() {
   function openModalPhysician(user) {
     setUserSelected(user);
     setShowModalPhysician(true);
+  }
+
+  function openConsultations() {
+    setShowConsultations(true);
   }
 
   function openModalPharmacist(pharmacist) {
@@ -57,19 +57,9 @@ export default function FetchUsers() {
 
   const handleDiseaseSubmit = (event) => {
     event.preventDefault();
-    if (modalInput !== "") {
-      setToPhysician({
-        id: userSelected.id,
-        patientInfo: loggedInUser,
-        disease: modalInput,
-      });
-      setModalInput("");
-    }
-    console.log({
-      id: userSelected.id,
-      patientInfo: [loggedInUser],
-      disease: modalInput,
-    });
+
+    setModalInput("");
+
     axios
       .post("http://localhost:5500/api/v1/disease", {
         id: userSelected.id,
@@ -83,26 +73,50 @@ export default function FetchUsers() {
       .catch((error) => {
         toast.error("Error occurred during POST request.");
       });
-
-    // console.log(userSelected, toPhysician, "jjjj", modalInput);
   };
 
-  // const id = "lkjfdsalknfdsa";
+  const allConsultation = () => {
+    axios
+      .get(`http://localhost:5500/api/v1/consultation`)
+      .then((response) => {
+        const payloadData = response.data.datas.Payload;
+        setConsultation(payloadData[loggedInUser.id]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-  axios
-    .get(
-      `http://localhost:5500/api/v1/consultation/18170884-5f3d-4cd0-b0f3-7aa0258dc690`
-    )
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  const handleConsultationSubmit = (event) => {
+    event.preventDefault();
+    setConsultationInput("");
+    axios
+      .post("http://localhost:5500/api/v1/consultation/pharmacist", {
+        id: loggedInUser.id,
+        patientInfo: [loggedInUser],
+        medicine: consultationInput,
+      })
+      .then((response) => {
+        console.log(response.data, "sdhskjdfhdskj");
+        toast.success("POST request was successful!");
+      })
+      .catch((error) => {
+        toast.error("Error occurred during POST request.");
+      });
+  };
 
   return (
     <>
       <div className="w-full grid justify-end h-full items-end">
+        <button
+          onClick={(event) => {
+            allConsultation();
+            openConsultations();
+          }}
+          className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-4"
+        >
+          Consultations
+        </button>
         <button className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-4">
           Medecine
         </button>
@@ -184,6 +198,27 @@ export default function FetchUsers() {
         </div>
       )}
 
+      {showConsultations && (
+        <div className="modal fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50">
+          <div className="modal-content bg-white mx-auto w-1/2 p-8 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <span
+              className="close absolute top-4 right-4 text-black cursor-pointer text-3xl font-bold"
+              onClick={() => setShowConsultations(false)}
+            >
+              &times;
+            </span>
+            <div className="flex flex-col gap-5">
+              <h1 className="font-bold text-3xl text-center">
+                Consulations from patients
+              </h1>
+              <p className="text-2xl">
+                <b>Consultation</b> : {consultation.consultation}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <h2 className="text-3xl text-center py-8 text-orange-500 font-bold">
         Pharmacists
       </h2>
@@ -236,13 +271,13 @@ export default function FetchUsers() {
             <h3 className="text-xl font-bold mb-4 text-center">
               Grant Access to Pharmacist {selectedPharmacist?.firstName}
             </h3>
-            <form>
+            <form onSubmit={handleConsultationSubmit}>
               <textarea
                 rows="4"
                 cols="50"
                 className="w-full border-gray-200 rounded px-2 py-1 border-2 outline-none focus:border-none focus:ring-2 ring-orange-500"
-                value={modalInput}
-                onChange={(e) => setModalInput(e.target.value)}
+                value={consultationInput}
+                onChange={(e) => setConsultationInput(e.target.value)}
               ></textarea>
               <button
                 type="submit"

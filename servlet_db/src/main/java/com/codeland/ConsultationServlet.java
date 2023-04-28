@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -69,26 +68,27 @@ public class ConsultationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Create a list of consultations
-        String id = request.getParameter("id");
-        Consultation consultationList = consultationMap.get(id);
+         Map<String, Consultation> resultMap = new LinkedHashMap<>();
 
-//        List<Consultation> consultationList = new ArrayList<>(consultationMap.values());
-        if (consultationList != null) {
-            // Create an ApiResponse object with the consultationList object
-            Map<String, Consultation> resultMap = new LinkedHashMap<>();
-            resultMap.put(id, consultationList);
-            ApiResponse apiResponse = new ApiResponse(ResponseFormat.SUCCESS, resultMap);
+         // Create an ApiResponse object with the consultationList object
 
-            // Send the ApiResponse object as a JSON response
-            Gson gson = new Gson();
-            response.setContentType("application/json");
-            PrintWriter out = response.getWriter();
-            out.print(gson.toJson(apiResponse));
-            System.out.println(gson.toJson(apiResponse));
-            out.flush();
-        } else {
-            // Return a 404 error response if the consultationList object is not found
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
+        // Retrieve the Consultation object from myMap using the id as the key
+        for (Map.Entry<String, Consultation> entry : consultationMap.entrySet()) {
+        String id = entry.getKey();
+        Consultation consultationList = entry.getValue();
+        resultMap.put(id, consultationList);
+    }
+ ApiResponse apiResponse = new ApiResponse(ResponseFormat.SUCCESS, resultMap);
+
+    // Send the ApiResponse object as a JSON response
+    Gson gson = new Gson();
+    response.setContentType("application/json");
+    PrintWriter out = response.getWriter();
+    out.print(gson.toJson(apiResponse));
+    System.out.println(gson.toJson(apiResponse));
+    out.flush();
+        // Check if the Consultation object exists
+    
+       
     }
 }

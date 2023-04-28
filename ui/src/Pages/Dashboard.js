@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import FetchUsers from "./FetchUsers";
 import Physician from "./Physician";
+import Pharmacist from "./Pharmacist";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -51,10 +52,16 @@ export default function Dashboard() {
       <div className="flex flex-col max-w-7xl mx-auto">
         <Navbar section="dashboard" />
 
-        <div className={` ${Role === "PATIENT" ? "mt-20" : "mt-32"}`}>
+        <div className={` ${Role === "PATIENT" ? "mt-12" : "mt-32"}`}>
           <div></div>
           {
-            Role === "PATIENT" ? <FetchUsers /> : <Physician />
+            Role === "PATIENT" ? (
+              <FetchUsers />
+            ) : Role === "PHYSICIAN" ? (
+              <Physician />
+            ) : (
+              <Pharmacist />
+            )
             // ) : Role !== "ADMIN" ? (
             //   <div className="datas ">
             //     <h1>Medical Records</h1>
