@@ -16,7 +16,7 @@ public class Physician extends User {
       throw new Exception("User already exists");
     }
     if (!Pattern.matches("^\\w{7,8}$", getPassword())) {
-      throw new Exception("Password must be 4 characters!");
+      throw new Exception("Password must be between 7 to 8 characters!");
     }
     encryptPassword();
     Users.addUser(this);
@@ -24,7 +24,7 @@ public class Physician extends User {
   };
 
     public Object getName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
 }

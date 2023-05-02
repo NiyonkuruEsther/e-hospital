@@ -1,43 +1,16 @@
-version: "3.8"
-
+version: "3"
 services:
-  frontend:
-    image: applicaion-ui:latest
+  react-frontend:
     build: ./ui
-    command: npm start
-    container_name: med_retrieval_ui
-    depends_on:
-      - node_bn
-    volumes:
-      - "./:/frontend"
     ports:
-      - 3000:3000
-    expose:
       - "3000:3000"
-    restart: unless-stopped
-  node_bn:
-    image: applicaion-bn:latest
+  node-middleware:
     build: ./node_server
-    container_name: med_retrieval_bn
+    ports:
+      - "5500:5500"
     depends_on:
-      - tomcat_db
-    volumes:
-      - ./:/src/node_bn
-    ports:
-      - "5500:5500"
-    expose:
-      - "5500:5500"
-    environment:
-      HOST: http://${DOCKER_GATEWAY_HOST:-host.docker.internal}
-    restart: unless-stopped
-  tomcat_db:
-    image: applicaion-server:latest
+      - java-backend
+  java-backend:
     build: ./servlet_db
-    container_name: med_retrieval_db
-    volumes:
-      - ./:/tomcat
     ports:
       - "8080:8080"
-    expose:
-      - "8080:8080"
-    restart: unless-stopped

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.codeland.user.models.Admin;
+import com.codeland.user.models.Patient;
 import com.codeland.user.models.User;
 import com.codeland.user.utils.ApiResponse;
 import com.codeland.user.utils.JsonUtil;
@@ -19,7 +19,7 @@ import com.codeland.user.utils.ResponseFormat;
 public class LoginServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    User user = new JsonUtil().parseBodyJson(req, Admin.class);
+    User user = new JsonUtil().parseBodyJson(req, Patient.class);
     try {
       ApiResponse<User> result = user.login(user.getIdentifier(), user.getPassword());
       ResponseFormat.response(res, result, HttpServletResponse.SC_OK);

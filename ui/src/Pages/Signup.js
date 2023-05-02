@@ -72,9 +72,9 @@ export default function SignupForm() {
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center ">
-      <div className="max-w-4xl mx-auto border-4 ring-4 ring-orange-500 w-full py-6 gap-6 flex flex-col">
+      <div className="max-w-4xl mx-auto border-4 ring-4 ring-darkGreen w-full py-6 gap-6 flex flex-col">
         <div className="">
-          <h2 className="text-center text-orange-500  font-extrabold text-3xl">
+          <h2 className="text-center text-darkGreen  font-extrabold text-3xl">
             Welcome to Go-Healthy
           </h2>
         </div>
@@ -83,7 +83,7 @@ export default function SignupForm() {
           className="max-w-3xl mx-auto w-full flex flex-col gap-4"
         >
           <div className="flex w-full gap-4 ">
-            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-orange-500 flex flex-col justify-center items-center">
+            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-darkGreen flex flex-col justify-center items-center">
               <input
                 className="w-5/6 focus:outline-none px-4"
                 type="text"
@@ -93,7 +93,7 @@ export default function SignupForm() {
                 onChange={handleChange}
               />
             </div>
-            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-orange-500 flex flex-col justify-center items-center">
+            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-darkGreen flex flex-col justify-center items-center">
               <input
                 className="w-5/6 focus:outline-none px-4"
                 type="text"
@@ -104,7 +104,7 @@ export default function SignupForm() {
               />
             </div>
           </div>
-          <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-orange-500 flex flex-col justify-center items-center">
+          <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-darkGreen flex flex-col justify-center items-center">
             <input
               className="w-5/6 focus:outline-none px-4"
               type="email"
@@ -115,7 +115,7 @@ export default function SignupForm() {
             />
           </div>
           <div className="flex w-full gap-4">
-            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-orange-500 flex flex-col justify-center items-center">
+            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-darkGreen flex flex-col justify-center items-center">
               <input
                 className="w-fit  focus:outline-none mx-auto"
                 type="password"
@@ -125,7 +125,7 @@ export default function SignupForm() {
                 onChange={handleChange}
               />
             </div>
-            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-orange-500 flex flex-col justify-center items-center">
+            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-darkGreen flex flex-col justify-center items-center">
               <input
                 className="w-5/6 focus:outline-none px-4"
                 type="number"
@@ -190,7 +190,7 @@ export default function SignupForm() {
             </div>
           </div>
 
-          <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-orange-500 flex flex-col justify-center items-center">
+          <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-darkGreen flex flex-col justify-center items-center">
             <select
               className="w-5/6 focus:outline-none "
               onChange={selectDropdown}
@@ -198,7 +198,6 @@ export default function SignupForm() {
               <option selected value="">
                 Select Role...
               </option>
-              <option value="Admin">Admin</option>
               <option value="Patient">Patient</option>
               <option value="Pharmacist">Pharmacist</option>
               <option value="Physician">Physician</option>
@@ -206,7 +205,7 @@ export default function SignupForm() {
           </div>
           <div className="flex flex-col justify-center items-center">
             <button
-              className="submit text-xl font-bold text-white flex justify-center p-4 rounded-full items-center gap-4 bg-gradient-to-r from-orange-500 to-orange-300"
+              className="submit text-xl font-bold text-white flex justify-center p-4 rounded-full items-center gap-4 bg-gradient-to-r from-darkGreen to-lightGreen"
               type="submit"
               onClick={handleFormSubmit}
             >
@@ -216,7 +215,7 @@ export default function SignupForm() {
             <span className="span text-opacity-40 text-black">
               Already a Go-Healthy member!
               <Link
-                className="link text-orange-500"
+                className="link text-darkGreen"
                 to={"/login"}
                 style={{ textDecoration: "none" }}
               >

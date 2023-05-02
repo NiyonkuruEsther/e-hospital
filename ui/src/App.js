@@ -7,7 +7,7 @@ import NoRedirect from "./Pages/NoRedirect";
 import PrivateRoute from "./Routes/PrivateRoute";
 import RedirectLogin from "./Pages/ToLogin";
 import Signup from "./Pages/Signup";
-import Users from "./Pages/FetchUsers";
+// import Users from "./Pages/FetchUsers";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {

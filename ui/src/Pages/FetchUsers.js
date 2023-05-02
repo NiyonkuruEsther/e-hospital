@@ -140,7 +140,7 @@ export default function FetchUsers() {
             allConsultation();
             openConsultations();
           }}
-          className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-4"
+          className="bg-darkGreen hover:bg-green-900 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-darkGreen mt-4"
         >
           Consultations
         </button>
@@ -149,19 +149,19 @@ export default function FetchUsers() {
             allMedicines();
             openMedicines();
           }}
-          className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-4"
+          className="bg-darkGreen hover:bg-green-900 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-darkGreen mt-4"
         >
           MedIcine
         </button>
       </div>
 
-      <h1 className="text-4xl text-center pb-8 text-orange-500 font-bold">
+      <h1 className="text-4xl text-center pb-8 text-darkGreen font-bold">
         List of available Physicians and Pharmacists
       </h1>
       {datas.length > 0 && (
         <table className="table-auto mx-auto w-full mb-8">
           <thead>
-            <tr className="bg-orange-500 text-white">
+            <tr className="bg-darkGreen text-white">
               {Object.keys(datas[0])
                 .filter((x) => x !== "id")
                 .filter((x) => x !== "identifier")
@@ -191,7 +191,7 @@ export default function FetchUsers() {
                   <td className="py-2 px-4">
                     <button
                       onClick={() => openModalPhysician(data)}
-                      className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="bg-darkGreen hover:bg-green-900 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-darkGreen"
                     >
                       Grant Access
                     </button>
@@ -218,13 +218,13 @@ export default function FetchUsers() {
                 name="disease"
                 rows="4"
                 cols="50"
-                className="w-full border-gray-200 rounded px-2 py-1 border-2 outline-none focus:border-none focus:ring-2 ring-orange-500"
+                className="w-full border-gray-200 rounded px-2 py-1 border-2 outline-none focus:border-none focus:ring-2 ring-darkGreen"
                 value={modalInput}
                 onChange={(e) => setModalInput(e.target.value)}
               ></textarea>
               <button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-4"
+                className="bg-darkGreen hover:bg-green-900 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-darkGreen mt-4"
               >
                 Submit
               </button>
@@ -274,7 +274,7 @@ export default function FetchUsers() {
 
                 <CSVLink
                   data={data}
-                  className="bg-orange-500  hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-12"
+                  className="bg-darkGreen  hover:bg-green-900 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-darkGreen mt-12"
                 >
                   Download Medicine CSV
                 </CSVLink>
@@ -283,13 +283,13 @@ export default function FetchUsers() {
           </div>
         </div>
       )}
-      <h2 className="text-3xl text-center py-8 text-orange-500 font-bold">
+      <h2 className="text-3xl text-center py-8 text-darkGreen font-bold">
         Pharmacists
       </h2>
       {datas.length > 0 && (
         <table className="table-auto mx-auto w-full">
           <thead>
-            <tr className="bg-orange-500 text-white">
+            <tr className="bg-darkGreen text-white">
               {Object.keys(datas[0])
                 .filter((x) => x !== "id")
                 .filter((x) => x !== "identifier")
@@ -316,7 +316,7 @@ export default function FetchUsers() {
                 <td className="py-2 px-4">
                   <button
                     onClick={() => openModalPharmacist(data)}
-                    className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="bg-darkGreen hover:bg-green-900 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-darkGreen"
                   >
                     Grant Access
                   </button>
@@ -342,13 +342,13 @@ export default function FetchUsers() {
               <textarea
                 rows="4"
                 cols="50"
-                className="w-full border-gray-200 rounded px-2 py-1 border-2 outline-none focus:border-none focus:ring-2 ring-orange-500"
+                className="w-full border-gray-200 rounded px-2 py-1 border-2 outline-none focus:border-none focus:ring-2 ring-darkGreen"
                 value={consultationInput}
                 onChange={(e) => setConsultationInput(e.target.value)}
               ></textarea>
               <button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-4"
+                className="bg-darkGreen hover:bg-green-900 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-darkGreen mt-4"
               >
                 Submit
               </button>

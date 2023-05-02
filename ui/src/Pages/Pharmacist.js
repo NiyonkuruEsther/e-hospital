@@ -89,13 +89,13 @@ const Pharmacist = () => {
   console.log(data, "data");
   return (
     <>
-      <h1 className="text-4xl text-center py-8 text-orange-500 font-bold">
+      <h1 className="text-4xl text-center py-8 text-darkGreen font-bold">
         List of accessible Patients
       </h1>
       {datas.length > 0 && (
         <table className=" mx-auto w-full mb-8">
           <thead className="w-full">
-            <tr className="bg-orange-500 text-white">
+            <tr className="bg-darkGreen text-white">
               {cols &&
                 Object.keys(cols)
                   .filter((x) => x !== "id")
@@ -128,7 +128,7 @@ const Pharmacist = () => {
                   <td className="py-2 px-4">
                     <button
                       onClick={() => openConsultationInput(item)}
-                      className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+                      className="bg-darkGreen hover:bg-green-900 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-darkGreen"
                     >
                       Consultation
                     </button>
@@ -208,7 +208,7 @@ const Pharmacist = () => {
               </div>
               <button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 mt-4"
+                className="bg-darkGreen hover:bg-green-900 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-darkGreen mt-4"
               >
                 Submit
               </button>

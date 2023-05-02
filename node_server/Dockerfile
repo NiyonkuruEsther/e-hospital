@@ -1,4 +1,3 @@
-# setup docker file for the project
 FROM  node:16-alpine3.12
 
 WORKDIR /app

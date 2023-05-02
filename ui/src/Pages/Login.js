@@ -61,15 +61,15 @@ export default function Signup() {
   };
   return (
     <div className="h-screen flex flex-col justify-center items-center">
-      <div className=" shadow-xl border-4 ring-4 ring-orange-500  rounded-3xl flex flex-col gap-6 p-6">
+      <div className=" shadow-xl border-4 ring-4 ring-darkGreen  rounded-3xl flex flex-col gap-6 p-6">
         <div className="">
-          <h2 className="title text-orange-500  font-extrabold text-3xl">
+          <h2 className="title text-darkGreen  font-extrabold text-3xl">
             Welcome back to Go-Healthy
           </h2>
         </div>
         <form>
           <div className="flex flex-col w-full gap-4 ">
-            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-orange-500 flex flex-col justify-center items-center">
+            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-darkGreen flex flex-col justify-center items-center">
               <input
                 className="w-5/6 focus:outline-none px-4"
                 type="text"
@@ -78,7 +78,7 @@ export default function Signup() {
                 onChange={handleChange}
               />
             </div>
-            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-orange-500 flex flex-col justify-center items-center">
+            <div className="password pb-1 w-full rounded-3xl h-14 border-2 focus:ring-2 ring-darkGreen flex flex-col justify-center items-center">
               <input
                 className="w-5/6 focus:outline-none px-4"
                 type="password"
@@ -89,7 +89,7 @@ export default function Signup() {
             </div>
             <div className="place-self-center flex flex-col">
               <button
-                className="submit text-xl font-bold text-white flex justify-center p-3 rounded-full items-center gap-4 bg-gradient-to-r from-orange-500 to-orange-300"
+                className="submit text-xl font-bold text-white flex justify-center p-3 rounded-full items-center gap-4 bg-gradient-to-r from-darkGreen to-lightGreen"
                 type="submit"
                 onClick={handleFormSubmit}
               >
@@ -98,7 +98,7 @@ export default function Signup() {
               </button>
               <span className="span text-opacity-40 text-black">
                 Not yet a member!
-                <Link to="/signup" className="link text-orange-500">
+                <Link to="/signup" className="link text-darkGreen">
                   Signup
                 </Link>
               </span>

@@ -54,72 +54,13 @@ export default function Dashboard() {
 
         <div className={` ${Role === "PATIENT" ? "mt-12" : "mt-32"}`}>
           <div></div>
-          {
-            Role === "PATIENT" ? (
-              <FetchUsers />
-            ) : Role === "PHYSICIAN" ? (
-              <Physician />
-            ) : (
-              <Pharmacist />
-            )
-            // ) : Role !== "ADMIN" ? (
-            //   <div className="datas ">
-            //     <h1>Medical Records</h1>
-            //     <ul className="datas_1 headers">
-            //       {datas.length &&
-            //         Object.keys(datas[0])
-            //           .filter((x) => x !== "type")
-            //           .map((k) => <li>{k}</li>)}
-            //     </ul>
-            //     {datas.length &&
-            //       datas.map((data1) => {
-            //         const lis = [];
-            //         for (const key in data1) {
-            //           if (
-            //             Object.hasOwnProperty.call(data1, key) &&
-            //             key !== "type"
-            //           ) {
-            //             const element = data1[key];
-            //             lis.push(<li>{element}</li>);
-            //           }
-            //         }
-            //         return <ul className="datas_1">{lis}</ul>;
-            //       })}
-            //   </div>
-            // ) : (
-            //   <>
-            //     {Object.keys(datas).map((d) => {
-            //       return (
-            //         <>
-            //           <h2 style={{ margin: "2rem 0", textAlign: "center" }}>
-            //             {d}
-            //           </h2>
-            //           <div className="datas">
-            //             <ul className="datas_1 headers">
-            //               {datas[d].length &&
-            //                 Object.keys(datas[d][0])
-            //                   .filter((x) => x !== "type")
-            //                   .map((k) => <li>{k}</li>)}
-            //             </ul>
-            //             {datas[d].length &&
-            //               datas[d].map((data1) => {
-            //                 const lis = [];
-            //                 for (const key in data1) {
-            //                   if (
-            //                     Object.hasOwnProperty.call(data1, key) &&
-            //                     key !== "type"
-            //                   ) {
-            //                     const element = data1[key];
-            //                     lis.push(<li>{element}</li>);
-            //                   }
-            //                 }
-            //                 return <ul className="datas_1">{lis}</ul>;
-            //               })}
-            //           </div>
-            //         </>
-            //       );
-            //     })}
-          }
+          {Role === "PATIENT" ? (
+            <FetchUsers />
+          ) : Role === "PHYSICIAN" ? (
+            <Physician />
+          ) : (
+            <Pharmacist />
+          )}
         </div>
       </div>
     </div>

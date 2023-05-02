@@ -16,11 +16,10 @@ public class Patient extends User {
       throw new Exception("Invalid email address!");
     }
     if (Users.findUser(getIdentifier()) != null) {
-      System.out.println("Patient already exists");
       throw new Exception("User already exists");
     }
-    if (!Pattern.matches("^[a-zA-z0-9*!@_\\-#$%^&]{6}$", getPassword())) {
-      throw new Exception("Password must be 6 characters!");
+    if (!Pattern.matches("^\\w{4,6}$", getPassword())) {
+      throw new Exception("Password must be between 4 to 6 characters!");
     }
     encryptPassword();
     Users.addUser(this);

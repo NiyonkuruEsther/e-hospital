@@ -23,7 +23,7 @@ export default function Navbar(props) {
   return (
     <header className="flex flex-col items-center absolute gap-2">
       <span className="flex flex-col items-center w-full ">
-        <MdOutlineAccountCircle className="text-orange-500 text-5xl" />
+        <MdOutlineAccountCircle className="text-darkGreen text-5xl" />
         <p
           style={{ marginBottom: "1rem" }}
           className="flex items-center font-bold text-lg"
@@ -49,7 +49,7 @@ export default function Navbar(props) {
       <button
         type="button"
         onClick={handleLogout}
-        className=" text-base font-bold text-white flex justify-center p-2 bg-orange-500"
+        className=" text-base font-bold text-white flex justify-center p-2 bg-darkGreen"
       >
         LOGOUT
       </button>

@@ -14,12 +14,12 @@ com\codeland\MainServlet.class
 com\codeland\user\models\PatientInfo.class
 com\codeland\database\Users.class
 com\codeland\user\models\Medicine.class
-com\codeland\user\models\Admin.class
 com\codeland\user\utils\JsonUtil$2.class
 com\codeland\MedicineServlet.class
 com\codeland\user\utils\ResponseFormat.class
 com\codeland\DashboardServlet.class
 com\codeland\user\servlets\LoginServlet.class
+com\codeland\user\servlets\registerServlet$1.class
 com\codeland\user\utils\CorsFilter.class
 com\codeland\user\servlets\GetUserServlet.class
 com\codeland\user\servlets\registerServlet.class
